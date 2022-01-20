@@ -18,13 +18,9 @@ server.get('/holidays/:month', (req, res) => {
 
 server.get("/is-today-holiday", (req, res) => {
     const hoje = dayjs().format("M/D/YYYY");
-    let todayHoliday = ""
+    const todayHoliday = holidays.find( holiday => holiday.date === hoje)
 
-    holidays.forEach( holiday => {
-        if(holiday.date === hoje) todayHoliday = holiday.name 
-    })
-
-    if(todayHoliday !== "") res.send(`Sim, hoje é ${todayHoliday}`)
+    if(todayHoliday) res.send(`Sim, hoje é ${todayHoliday.name}`)
     else res.send(`Não, hoje não é feriado`)
 });
 
